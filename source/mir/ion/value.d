@@ -1344,7 +1344,7 @@ struct IonDescribedDecimal
     +/
     // deprecated("Use inout(T) get(T)(scope out IonErrorCode)")
     IonErrorCode get(T)(scope ref T value)
-        @safe pure nothrow @nogc scope const
+        @trusted pure nothrow @nogc scope const
         if (isFloatingPoint!T && isMutable!T)
     {
         Decimal!128 decimal = void;

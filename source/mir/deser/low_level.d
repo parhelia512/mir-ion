@@ -289,7 +289,7 @@ $(TABLE
 )
 +/
 IonErrorCode deserializeValueImpl(T)(scope IonDescribedValue data, scope ref T value)
-    pure @safe nothrow @nogc
+    pure @trusted nothrow @nogc
     if (isFloatingPoint!T)
 {
     if (_expect(data != null, true))

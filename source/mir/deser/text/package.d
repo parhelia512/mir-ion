@@ -841,7 +841,7 @@ private:
     }
 
     @(IonTokenType.TokenNumber)
-    void onNumber() @safe pure
+    void onNumber() @trusted pure
     {
         import mir.bignum.integer;
         import mir.bignum.decimal;

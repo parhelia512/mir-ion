@@ -493,31 +493,31 @@ private void serializeValueImpl(S, V)(scope ref S serializer, scope ref const V 
 
     foreach(member; aliasSeqOf!(SerializableMembers!V))
     {{
-        enum key = serdeGetKeyOut!(__traits(getMember, value, member));
+        enum key = serdeGetKeyOut!(V, member);
 
         static if (key !is null)
         {
-            static if (hasUDA!(__traits(getMember, value, member), serdeIgnoreDefault))
+            static if (hasUDA!(V, member, serdeIgnoreDefault))
             {
                 if (__traits(getMember, value, member) == __traits(getMember, V.init, member))
                     continue;
             }
 
-            static if(hasUDA!(__traits(getMember, value, member), serdeIgnoreOutIf))
+            static if(hasUDA!(V, member, serdeIgnoreOutIf))
             {
                 alias pred = serdeGetIgnoreOutIf!(__traits(getMember, value, member));
                 if (pred(__traits(getMember, value, member)))
                     continue;
             }
 
-            static if(hasUDA!(__traits(getMember, value, member), serdeIgnoreIfAggregate))
+            static if(hasUDA!(V, member, serdeIgnoreIfAggregate))
             {
                 alias pred = serdeGetIgnoreIfAggregate!(__traits(getMember, value, member));
                 if (pred(value))
                     continue;
             }
 
-            static if(hasUDA!(__traits(getMember, value, member), serdeIgnoreOutIfAggregate))
+            static if(hasUDA!(V, member, serdeIgnoreOutIfAggregate))
             {
                 alias pred = serdeGetIgnoreOutIfAggregate!(__traits(getMember, value, member));
                 if (pred(value))
@@ -536,7 +536,7 @@ private void serializeValueImpl(S, V)(scope ref S serializer, scope ref const V 
                     continue;
             }
 
-            static if(hasUDA!(__traits(getMember, value, member), serdeTransformOut))
+            static if(hasUDA!(V, member, serdeTransformOut))
             {
                 alias f = serdeGetTransformOut!(__traits(getMember, value, member));
                 auto val = f(__traits(getMember, value, member));
@@ -569,12 +569,12 @@ private void serializeValueImpl(S, V)(scope ref S serializer, scope ref const V 
                 serializer.putKey(key);
             }
 
-            static if(hasUDA!(__traits(getMember, value, member), serdeLikeList))
+            static if(hasUDA!(V, member, serdeLikeList))
             {
                 static assert(0);
             }
             else
-            static if(hasUDA!(__traits(getMember, value, member), serdeLikeStruct))
+            static if(hasUDA!(V, member, serdeLikeStruct))
             {
                 static if(is(W == interface) || is(W == class) || is(W : E[T], E, T))
                 {
@@ -604,7 +604,7 @@ private void serializeValueImpl(S, V)(scope ref S serializer, scope ref const V 
                 serializer.structEnd(valState);
             }
             else
-            static if(hasUDA!(__traits(getMember, value, member), serdeProxy))
+            static if(hasUDA!(V, member, serdeProxy))
             {
                 serializeProxyCastImpl!(S, __traits(getMember, value, member))(serializer, val);
             }
