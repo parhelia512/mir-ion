@@ -1010,7 +1010,7 @@ unittest
 CSV serialization function.
 +/
 string serializeCsv(V)(
-    auto scope ref const V value,
+    auto ref const V value,
     char separator = ',',
     char quote = '"',
     bool quoteAll = false,
@@ -1054,7 +1054,7 @@ Ion serialization for custom outputt range.
 +/
 void serializeCsv(Appender, V)(
     scope ref Appender appender,
-    auto scope ref const V value,
+    auto ref const V value,
     char separator = ',',
     char quote = '"',
     bool quoteAll = false,

@@ -45,7 +45,7 @@ Returns:
     UTF-8 YAML text
 +/
 @safe
-string serializeYaml(V)(auto scope ref const V value, YamlSerializationParams params = YamlSerializationParams.init, int serdeTarget = SerdeTarget.yaml)
+string serializeYaml(V)(auto ref const V value, YamlSerializationParams params = YamlSerializationParams.init, int serdeTarget = SerdeTarget.yaml)
 {
     static if (is(V == YamlAlgebraic))
     {

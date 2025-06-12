@@ -18,7 +18,7 @@ template serde(T)
     import mir.serde: SerdeTarget;
 
     ///
-    T serde(V)(auto scope ref const V value, int serdeTarget = SerdeTarget.ion)
+    T serde(V)(auto ref const V value, int serdeTarget = SerdeTarget.ion)
     {
         T target;
         serde(target, value, serdeTarget);
