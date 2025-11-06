@@ -538,7 +538,7 @@ private void serializeValueImpl(S, V)(scope ref S serializer, scope ref const V 
 
             static if(hasUDA!(V, member, serdeTransformOut))
             {
-                alias f = serdeGetTransformOut!(__traits(getMember, value, member));
+                alias f = serdeGetTransformOut!(V, member);
                 auto val = f(__traits(getMember, value, member));
                 alias W  = typeof(val);
             }
